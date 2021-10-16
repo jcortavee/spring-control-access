@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_control_access
+    username: root
+    password: root1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+springdoc:
+  api-docs:
+    path: /api-docs
