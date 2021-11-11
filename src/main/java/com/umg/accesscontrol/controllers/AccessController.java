@@ -3,6 +3,7 @@ package com.umg.accesscontrol.controllers;
 import com.umg.accesscontrol.models.Access;
 import com.umg.accesscontrol.models.User;
 import com.umg.accesscontrol.repositories.AccessRepository;
+import com.umg.accesscontrol.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,11 @@ import java.util.Optional;
 public class AccessController {
 
     private final AccessRepository accessRepository;
+    private final UserRepository userRepository;
 
-    public AccessController(AccessRepository accessRepository) {
+    public AccessController(AccessRepository accessRepository, UserRepository userRepository) {
         this.accessRepository = accessRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -38,6 +41,16 @@ public class AccessController {
         }
 
         return new ResponseEntity<>(access.get(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/user/{id}")
+    public ResponseEntity<List<Access>> getAccessesByUser(@PathVariable("id") Long id) {
+        User user = userRepository.getById(id);
+        System.out.println(user.getRole());
+        System.out.println(user.getUsername());
+        List<Access> accesses = accessRepository.findAccessByUser(user);
+
+        return new ResponseEntity<>(accesses, HttpStatus.OK);
     }
 
     @PostMapping

@@ -12,12 +12,20 @@ CREATE TABLE access_type (
     PRIMARY KEY (id)
 );
 
+# Department Table
+CREATE TABLE department (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+);
+
 # Employee Table
 CREATE TABLE employee (
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
     employee_code VARCHAR(25) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
+    department_id BIGINT(20) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -26,7 +34,7 @@ CREATE TABLE user (
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(250) NOT NULL,
-    employee_id BIGINT(20) NOT NULL ,
+    employee_id BIGINT(20) NOT NULL,
     role_id BIGINT(20) NOT NULL ,
     PRIMARY KEY (id)
 );
@@ -41,6 +49,8 @@ CREATE TABLE access (
 );
 
 # Foreign keys
+ALTER TABLE employee
+    ADD FOREIGN KEY (department_id) REFERENCES department(id);
 ALTER TABLE user
     ADD FOREIGN KEY (employee_id) REFERENCES employee(id);
 ALTER TABLE user

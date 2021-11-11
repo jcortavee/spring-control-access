@@ -8,6 +8,17 @@ spring:
     username: root
     password: root1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-springdoc:
-  api-docs:
-    path: /api-docs
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 643611153022-8eq0reu9vioi50rfuf6k0bjmjl5r1j06.apps.googleusercontent.com
+            clientSecret: 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
+
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  springdoc:
+    api-docs:
+      path: /api-docs
